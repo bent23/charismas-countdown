@@ -1,1 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Countdown</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+        }
+        h1 {
+            color: #ff6347;
+            font-size: 50px;
+        }
+        #countdown {
+            font-size: 40px;
+            color: #ff0000;
+            font-weight: bold;
+        }
+        #message {
+            font-size: 30px;
+            color: #2e8b57;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Christmas Countdown</h1>
+    <div id="countdown"></div>
+    <div id="message"></div>
+
+    <script>
+        function updateCountdown() {
+            // Get current date and time
+            const now = new Date();
+            
+            // Set Christmas date (December 25th of the current year)
+            let christmasDate = new Date(now.getFullYear(), 11, 25); // Month is 0-indexed (11 is December)
+
+            // If Christmas is already passed this year, set the date to next year
+            if (now > christmasDate) {
+                christmasDate.setFullYear(now.getFullYear() + 1);
+            }
+
+            // Calculate the difference between now and Christmas
+            const timeDiff = christmasDate - now;
+
+            // Calculate days, hours, minutes, and seconds
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            // Update the countdown display
+            document.getElementById("countdown").innerHTML = 
+                days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+            // If Christmas has arrived, show a message
+            if (timeDiff <= 0) {
+                document.getElementById("countdown").style.display = 'none';
+                document.getElementById("message").innerHTML = "Merry Christmas!";
+            }
+        }
+
+        // Update the countdown every 1 second
+        setInterval(updateCountdown, 1000);
+    </script>
+
+</body>
+</html>
 
